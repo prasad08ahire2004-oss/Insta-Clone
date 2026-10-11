@@ -8,6 +8,6 @@ app.use(express.json())
 app.use(cookieparser())
 
 app.use('/api/auth' , authRouter)
-// yaha hum api ka path decide karte hai [http://localhost:3000/api/auth/register]
+// yaha hum api ka path decide karte hai [http://localhost:3000/api/auth/register or login]
 
 module.exports = app

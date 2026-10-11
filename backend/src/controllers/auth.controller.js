@@ -158,7 +158,109 @@ async function registerController(req,res) {
 
 }
 
+async function loginController(req,res) {
+
+        try {
+        const { username, email, password } = req.body;
+
+        // 1. Validate required fields
+        const loginId = (username || email || "").trim();
+
+        if (!loginId || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Username/email and password are required",
+                errors: {
+                    ...(!loginId && {
+                        username: "Username or email is required"
+                    }),
+                    ...(!password && {
+                        password: "Password is required"
+                    })
+                }
+            });
+        }
+
+        // 2. Find user using username OR email
+        const user = await userModel.findOne({
+            $or: [
+                { username: loginId },
+                { email: loginId.toLowerCase() }
+            ]
+        }).select("+password");
+        //Important: The .select("+password") is necessary because your schema has select: false for the password field. Without it, Mongoose won't return the password hash, and bcrypt.compare() won't work correctly.
+
+        // 3. Check if user exists
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username/email or password",
+                errors: {
+                    username: "Invalid username/email or password"
+                }
+            });
+        }
+
+        // 4. Compare password
+        const isPasswordValid = await bcrypt.compare(
+            password,
+            user.password
+        );
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid username/email or password",
+                errors: {
+                    password: "Invalid username/email or password"
+                }
+            });
+        }
+
+        // 5. Generate JWT
+        const token = jwt.sign(
+            {
+                id: user._id,
+                username: user.username
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1d"
+            }
+        );
+
+        // 6. Set cookie
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        // 7. Send success response
+        return res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            user: {
+                id: user._id,
+                username: user.username,
+                email: user.email
+            }
+        });
+
+    } catch (error) {
+        console.error("Login error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error"
+        });
+    }
+
+}
+
 
 module.exports = {
-    registerController
+    registerController,
+    loginController
 }
