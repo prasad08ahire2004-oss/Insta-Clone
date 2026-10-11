@@ -9,7 +9,7 @@ function connectToDb() {
         console.log("connected to database")
     })
     .catch((err)=> {
-        console.err("Error connecting to mongodb" , err)
+        console.error("Error connecting to mongodb" , err)
     })
 }
 

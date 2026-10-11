@@ -2,3 +2,6 @@
 2. npm i express
 3. npm i mongoose
 4. npm i dotenv
+5. npm i bcryptjs
+6. npm i jsonwebtoken
+7. npm i cookie-parser
