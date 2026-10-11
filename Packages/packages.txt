@@ -5,3 +5,10 @@
 5. npm i bcryptjs
 6. npm i jsonwebtoken
 7. npm i cookie-parser
+
+
+
+
+frontend packages
+1. react-router-dom
+2. npm install tailwindcss @tailwindcss/vite
