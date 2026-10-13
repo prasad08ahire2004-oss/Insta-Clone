@@ -12,3 +12,4 @@
 frontend packages
 1. react-router-dom
 2. npm install tailwindcss @tailwindcss/vite
+3. npm i sass
