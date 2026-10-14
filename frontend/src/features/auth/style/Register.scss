@@ -199,3 +199,14 @@
         }
     }
 }
+
+.error-message {
+    color: #ff6b6b;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+.register-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

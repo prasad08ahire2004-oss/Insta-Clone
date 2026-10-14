@@ -21,18 +21,12 @@ const Home = () => {
             Connect , Share , make friends. <br />  Contribute to society...
           </p>
 
-          <NavLink to="/register">
-            <a href="#work" className="view-work-btn">
-              SIGN IN
-              <span>↗</span>
-            </a>
+          <NavLink to="/register" className="view-work-btn">
+            SIGN IN
           </NavLink>
 
-          <NavLink to="/login">
-            <a href="#work" className="view-work-btn">
-              LOGIN
-              <span>↗</span>
-            </a>
+          <NavLink to="/login" className="view-work-btn">
+            LOG IN
           </NavLink>
 
         </div>
