@@ -28,6 +28,13 @@ const Home = () => {
             </a>
           </NavLink>
 
+          <NavLink to="/login">
+            <a href="#work" className="view-work-btn">
+              LOGIN
+              <span>↗</span>
+            </a>
+          </NavLink>
+
         </div>
 
         <div className='left-inner'>
