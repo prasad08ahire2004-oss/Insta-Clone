@@ -1,11 +1,32 @@
-import React, { useState } from 'react'
-import '../style/Login.scss'
+import React, { useState } from 'react';
+import '../style/Login.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const { handleLogin, loading } = useAuth();
+    const navigate = useNavigate();
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setErrorMessage('');
+
+        try {
+            await handleLogin(email.trim(), password);
+            navigate('/feed');
+        } catch (error) {
+            setErrorMessage(
+                error.response?.data?.message ||
+                'Login failed. Please try again.'
+            );
+        }
+    }
 
     return (
         <main className="login-page">
-
             <div className="login-container">
 
                 {/* Header */}
@@ -20,7 +41,12 @@ const Login = () => {
                 </div>
 
                 {/* Login Form */}
-                <form>
+                <form onSubmit={handleSubmit}>
+                    {errorMessage && (
+                        <p className="error-message" role="alert">
+                            {errorMessage}
+                        </p>
+                    )}
 
                     <div className="form-group">
                         <label htmlFor="email">Email Address</label>
@@ -30,6 +56,8 @@ const Login = () => {
                             id="email"
                             name="email"
                             placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
@@ -44,30 +72,35 @@ const Login = () => {
                             id="password"
                             name="password"
                             placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
 
                     {/* Forgot Password */}
                     <div className="forgot-password">
-                        <a href="/forgot-password">
+                        <Link to="/forgot-password">
                             Forgot password?
-                        </a>
+                        </Link>
                     </div>
 
                     {/* Login Button */}
-                    <button type="submit" className="login-btn">
-                        Login
-                        <span>↗</span>
+                    <button
+                        type="submit"
+                        className="login-btn"
+                        disabled={loading}
+                    >
+                        {loading ? 'Logging in...' : 'Login'}
+                        {!loading && <span>↗</span>}
                     </button>
-
                 </form>
 
                 {/* Register Link */}
                 <div className="login-footer">
                     <p>
                         Don't have an account?
-                        <a href="/register"> Register</a>
+                        <Link to="/register"> Register</Link>
                     </p>
                 </div>
 
@@ -79,9 +112,8 @@ const Login = () => {
                 </div>
 
             </div>
-
         </main>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;
