@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/Home.scss'
 import {assets} from '../assets/assets'
+import { NavLink } from 'react-router-dom'
 
 const Home = () => {
   return (
@@ -20,10 +21,12 @@ const Home = () => {
             Connect , Share , make friends. <br />  Contribute to society...
           </p>
 
-          <a href="#work" className="view-work-btn">
-            SIGN IN
-            <span>↗</span>
-          </a>
+          <NavLink to="/register">
+            <a href="#work" className="view-work-btn">
+              SIGN IN
+              <span>↗</span>
+            </a>
+          </NavLink>
 
         </div>
 
