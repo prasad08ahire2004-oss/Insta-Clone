@@ -6,6 +6,7 @@
 6. npm i jsonwebtoken
 7. npm i cookie-parser
 8. npm i cors
+9. npm i multer
 
 
 
