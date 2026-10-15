@@ -1,6 +1,7 @@
 const express = require('express')
 const cookieparser = require('cookie-parser')
 const authRouter = require('./routes/auth.routes')
+const postRouter = require('./routes/post.routes')
 const cors = require('cors')
 
 const app = express()
@@ -14,5 +15,7 @@ app.use(cors({
 
 app.use('/api/auth' , authRouter)
 // yaha hum api ka path decide karte hai [http://localhost:3000/api/auth/register or login]
+
+app.use("/api/posts" , postRouter)
 
 module.exports = app
