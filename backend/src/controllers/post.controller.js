@@ -55,6 +55,7 @@ async function getFeedController(req, res) {
     try {
         const posts = await postModel
             .find()
+            .sort({ createdAt: -1 })
             .populate('user');
 
         return res.status(200).json({
