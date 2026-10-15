@@ -1,0 +1,126 @@
+.create-post {
+    min-height: 100vh;
+    padding: 40px 20px;
+    background: #0f0f0f;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+    }
+
+    form {
+        width: 100%;
+        max-width: 500px;
+        padding: 30px;
+        background: #1a1a1a;
+        border: 1px solid #2d2d2d;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        box-sizing: border-box;
+    }
+
+    form > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #d4d4d4;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 120px;
+        padding: 14px;
+        box-sizing: border-box;
+        resize: vertical;
+        background: #252525;
+        color: #ffffff;
+        border: 1px solid #3a3a3a;
+        border-radius: 10px;
+        outline: none;
+        font: inherit;
+        transition: border-color 0.2s ease;
+
+        &::placeholder {
+            color: #888888;
+        }
+
+        &:focus {
+            border-color: #a855f7;
+        }
+    }
+
+    input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+        background: #252525;
+        color: #cccccc;
+        border: 1px dashed #555555;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &::file-selector-button {
+            padding: 8px 12px;
+            margin-right: 12px;
+            background: #333333;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 13px;
+        background: #a855f7;
+        color: #ffffff;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+
+        &:hover:not(:disabled) {
+            background: #9333ea;
+            transform: translateY(-1px);
+        }
+
+        &:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    }
+
+    [role="alert"] {
+        color: #f87171;
+        font-size: 14px;
+        margin: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-post {
+        padding: 24px 14px;
+
+        h2 {
+            font-size: 24px;
+        }
+
+        form {
+            padding: 20px;
+        }
+    }
+}
